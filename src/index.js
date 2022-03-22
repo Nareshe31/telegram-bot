@@ -25,6 +25,10 @@ app.post(URI,async(req,res)=>{
     })
 })
 
+app.get('/',(req,res)=>{
+    res.json({message:"This is the new api for telegram bot"})
+})
+
 app.listen(PORT,async()=>{
     console.log(`🚀 app is running on port ${PORT}`);
     await init()
