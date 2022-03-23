@@ -29,7 +29,7 @@ app.post(URI, async (req, res) => {
             
             const res1 = await axios.post(`${TELEGRAM_API}/sendMessage`, {
                 chat_id: chatId,
-                text:`✨Hi ${username}, I am Torrent Search Bot and I can help you to search and explore torrents in YTS.
+                text:`✨Hi ${username}, I am Yts Torrent Search Bot and I can help you to search and explore torrents in Yts.
 
 Send any movie name along with release year to search for torrents.
 
@@ -47,6 +47,7 @@ Eg: <pre>Batman Begins 2005</pre>`,
                 parse_mode:"HTML"
             })
             const res2 = await axios.get(`${TORRENT_SEARCH_URL}/${text}`)
+            console.log(res2.data);
             const results=res2.data.results
             var msg="";
             for (let i = 0; i < results.length; i++) {
@@ -63,7 +64,7 @@ Eg: <pre>Batman Begins 2005</pre>`,
 
 `
             }
-            msg=msg+Number(results.length)>0?`Total results: ${results.length}`:"No results found"
+            msg=Number(results.length)>0?msg+`Total results: ${results.length}`:"No results found"
             const res3 = await axios.post(`${TELEGRAM_API}/sendMessage`, {
                 chat_id: chatId,
                 text:msg,
