@@ -17,17 +17,22 @@ const init=async()=>{
 }
 
 app.post(URI,async(req,res)=>{
-    const chatId=req.body.message.chat.id
-    const text=req.body.message.text
-    const res1=await axios.post(`${TELEGRAM_API}/sendMessage`,{
-        chat_id:chatId,
-        text:text
-    })
-    res.json({ok:true,message:"Message is sent"})
+    try {
+        const chatId=req.body.message.chat.id
+        const text=req.body.message.text
+        const res1=await axios.post(`${TELEGRAM_API}/sendMessage`,{
+            chat_id:chatId,
+            text:text
+        })
+        return res.send()
+    } catch (error) {
+        return res.send()
+    }
+    
 })
 
 app.get('/',(req,res)=>{
-    res.json({message:"This is the new api for telegram bot"})
+    res.json({message:"This is the new api for telegram bot",url:WEBHOOK_URL})
 })
 
 app.listen(PORT,async()=>{
