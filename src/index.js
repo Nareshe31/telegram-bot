@@ -23,6 +23,7 @@ app.post(URI,async(req,res)=>{
         chat_id:chatId,
         text:text
     })
+    res.json({ok:true,message:"Message is sent"})
 })
 
 app.get('/',(req,res)=>{
