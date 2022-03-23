@@ -47,11 +47,11 @@ Eg: <pre>Batman Begins 2005</pre>`,
                 parse_mode:"HTML"
             })
             const res2 = await axios.get(`${TORRENT_SEARCH_URL}/${text}`)
-            console.log(res2.data);
             const results=res2.data.results
             var msg="";
             for (let i = 0; i < results.length; i++) {
                 const item=results[i]
+                const link=SERVER_URL+"/redirect?url=magnet:?xt=urn:btih:"+String(item.link).slice(-40)+"&amp;dn="+item.title+"&amp;tr=udp%3A%2F%2Fglotorrents.pw%3A6969%2Fannounce&amp;tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&amp;tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&amp;tr=udp%3A%2F%2Fp4p.arenabg.ch%3A1337&amp;tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337"
                 if (i>5) {
                     break
                 }
@@ -59,7 +59,7 @@ Eg: <pre>Batman Begins 2005</pre>`,
 
 💾${item.size}  🟢${item.seeds}  🔴${item.peers} 
 
-🧲<a href="https://www.google.com">Download</a>
+🧲<a href="${link}">Download</a>
 
 
 `
@@ -83,6 +83,11 @@ Eg: <pre>Batman Begins 2005</pre>`,
         return res.send()
     }
 });
+
+app.get('/redirect',(req,res)=>{
+    let {url}=req.query
+    res.redirect(url)
+})
 
 app.get("/", (req, res) => {
     res.json({
