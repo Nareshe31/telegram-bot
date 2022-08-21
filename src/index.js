@@ -106,8 +106,8 @@ async function updateMessageText(callback_query, callback) {
         const resPhoto = await axios.post(`${TELEGRAM_API}/editMessageText`, {
             chat_id: chatId,
             message_id: messageId,
-            text: `Total results: ${results.length} 
-Page:${page}/${Math.ceil(results.length/10)}`,
+            text: `Total results: ${results?.length} 
+Page:${page}/${Math.ceil(results?.length/10)}`,
             // photo:"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg"
             reply_markup: {
                 inline_keyboard: inilineKeyboards,
@@ -199,8 +199,8 @@ async function sendMessage(data, callback) {
         
         const res3 = await axios.post(`${TELEGRAM_API}/sendMessage`, {
             chat_id: chatId,
-            text: results.length?`Total results: ${results.length}  
-Page:1/${Math.ceil(results.length/10)}`:"No results found😥",
+            text: results?.length?`Total results: ${results.length}  
+Page:1/${Math.ceil(results?.length/10)}`:"No results found😥",
             // photo:"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg"
             reply_markup: {
                 inline_keyboard:inilineKeyboards,
