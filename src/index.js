@@ -100,8 +100,8 @@ async function updateMessageText(callback_query, callback) {
         const res2 = await axios.get(`${TORRENT_SEARCH_URL}/${query}`);
         const results = res2.data.result;
 
-        var resultsSliced = results.slice((page - 1) * 10, page * 10);
-        var inilineKeyboards = generateTorrentButtons(results.length,resultsSliced,query,page);
+        var resultsSliced = results?.length?results.slice((page - 1) * 10, page * 10):[];
+        var inilineKeyboards = generateTorrentButtons(results?.length??0,resultsSliced,query,page);
 
         const resPhoto = await axios.post(`${TELEGRAM_API}/editMessageText`, {
             chat_id: chatId,
@@ -193,9 +193,9 @@ async function sendMessage(data, callback) {
 
         const res2 = await axios.get(`${TORRENT_SEARCH_URL}/${text}`);
         const results = res2.data.result;
-        var resultsSliced = results.length?results.slice(0, 10):[];
+        var resultsSliced = results?.length?results.slice(0, 10):[];
 
-        var inilineKeyboards = resultsSliced.length?generateTorrentButtons(results.length,resultsSliced,text,1):[];
+        var inilineKeyboards = resultsSliced.length?generateTorrentButtons(results?.length??0,resultsSliced,text,1):[];
         
         const res3 = await axios.post(`${TELEGRAM_API}/sendMessage`, {
             chat_id: chatId,
